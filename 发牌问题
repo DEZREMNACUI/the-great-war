@@ -1,0 +1,199 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+#include<string.h>
+typedef struct pai{
+	int dian1;
+	char* hua1;
+}pai;
+void xipai1(int* dian){
+	for(int i=0;i<13;i++){
+        int t=dian[i];
+        int a=rand()%13;
+        dian[i]=dian[a];
+        dian[a]=t;
+    }
+}
+void xipai2(char* huase[]){
+    for(int i=0;i<4;i++){
+        char* t=huase[i];
+		int a=rand()%4;
+        huase[i]=huase[a];
+        huase[a]=t;
+    }
+}
+void xipai3(pai* p,char* huase[],int* dian){
+    for(int i=0;i<52;i++){
+    	p[i].hua1=huase[i%4];
+        if((i+1)%4==0){
+            xipai2(huase);
+        }
+    }
+    for(int i=0;i<52;i++){
+        p[i].dian1=dian[i%13];
+        if((i+1)%13==0){
+            xipai1(dian);
+        }
+    }
+}
+void xipai(pai* p){
+    for(int i=0;i<52;i++){
+        int t1=p[i].dian1;
+        char* t2=p[i].hua1;
+        int a=rand()%52;
+        p[i].dian1=p[a].dian1;
+        p[a].dian1=t1;
+        p[i].hua1=p[a].hua1;
+        p[a].hua1=t2;
+    }
+}
+void fapai(pai* p,pai player[][13]){
+    for(int i=0;i<52;i++){
+        if(i<13){
+            player[0][i]=p[i];
+        }else if(i<26){
+            int j=i-13;
+            player[1][j]=p[i];
+        }else if(i<39){
+            int j=i-26;
+            player[2][j]=p[i];
+        }else{
+            int j=i-39;
+            player[3][j]=p[i];
+        }
+    }
+}
+void paixu(pai player[][13]){
+    for(int j=0;j<4;j++){
+        int t1=0;
+        for(int i=0;i<13;i++){
+            if(strcmp(player[j][i].hua1,"heitao")==0){
+                char* t2=player[j][i].hua1;
+                player[j][i].hua1=player[j][t1].hua1;
+                player[j][t1].hua1=t2;
+                int t3=player[j][i].dian1;
+                player[j][i].dian1=player[j][t1].dian1;
+                player[j][t1].dian1=t3;
+                t1++;
+            }
+        }
+        for(int i=0;i<t1;i++){
+            for(int i1=i;i1<t1;i1++){
+                if(player[j][i].dian1<player[j][i1].dian1){
+                    int t11=player[j][i].dian1;
+                    player[j][i].dian1=player[j][i1].dian1;
+                    player[j][i1].dian1=t11;
+                }
+            }
+        }
+        int t12=t1;
+        for(int i=0;i<13;i++){
+            if(strcmp(player[j][i].hua1,"hongtao")==0){
+                char* t2=player[j][i].hua1;
+                player[j][i].hua1=player[j][t1].hua1;
+                player[j][t1].hua1=t2;
+                int t3=player[j][i].dian1;
+                player[j][i].dian1=player[j][t1].dian1;
+                player[j][t1].dian1=t3;
+                t1++;
+            }
+        }
+         for(int i=t12;i<t1;i++){
+            for(int i1=i;i1<t1;i1++){
+                if(player[j][i].dian1<player[j][i1].dian1){
+                    int t11=player[j][i].dian1;
+                    player[j][i].dian1=player[j][i1].dian1;
+                    player[j][i1].dian1=t11;
+                }
+            }
+        }
+        int t13=t1;
+        for(int i=0;i<13;i++){
+            if(strcmp(player[j][i].hua1,"meihua")==0){
+                char* t2=player[j][i].hua1;
+                player[j][i].hua1=player[j][t1].hua1;
+                player[j][t1].hua1=t2;
+                int t3=player[j][i].dian1;
+                player[j][i].dian1=player[j][t1].dian1;
+                player[j][t1].dian1=t3;
+                t1++;
+            }
+        }
+        for(int i=t13;i<t1;i++){
+            for(int i1=i;i1<t1;i1++){
+                if(player[j][i].dian1<player[j][i1].dian1){
+                    int t11=player[j][i].dian1;
+                    player[j][i].dian1=player[j][i1].dian1;
+                    player[j][i1].dian1=t11;
+                }
+            }
+        }
+        int t14=t1;
+        for(int i=0;i<13;i++){
+            if(strcmp(player[j][i].hua1,"fangkuai")==0){
+                char* t2=player[j][i].hua1;
+                player[j][i].hua1=player[j][t1].hua1;
+                player[j][t1].hua1=t2;
+                int t3=player[j][i].dian1;
+                player[j][i].dian1=player[j][t1].dian1;
+                player[j][t1].dian1=t3;
+                t1++;
+            }
+        }
+        for(int i=t14;i<t1;i++){
+            for(int i1=i;i1<t1;i1++){
+                if(player[j][i].dian1<player[j][i1].dian1){
+                    int t11=player[j][i].dian1;
+                    player[j][i].dian1=player[j][i1].dian1;
+                    player[j][i1].dian1=t11;
+                }
+            }
+        }
+    }
+}
+int main(){
+	char* huase[4]={"heitao","hongtao","meihua","fangkuai"};
+    int dian[13]={'E','D','C','B',10,9,8,7,6,5,4,3,2};
+    srand(time(NULL));
+    pai p[52];
+    int n1,n2;
+    xipai1(dian);
+    xipai2(huase);
+    xipai3(p,huase,dian);
+    xipai(p);
+    pai player[4][13];
+    fapai(p,player);
+    paixu(player);
+    printf("发牌效果如下\n");
+    for(int j=0;j<4;j++){
+        printf("玩家%d的牌为:\n",j);
+        for(int i=0;i<13;i++){
+            if(player[j][i].dian1>10){
+                if(player[j][i].dian1=='E'){
+                    player[j][i].dian1='A';
+                }else if(player[j][i].dian1=='D'){
+                    player[j][i].dian1='K';
+                }else if (player[j][i].dian1=='C'){
+                    player[j][i].dian1='Q';
+                }else if(player[j][i].dian1=='B'){
+                    player[j][i].dian1='J';
+                }
+                printf("%s %c\n",player[j][i].hua1,player[j][i].dian1);
+            }else{
+                printf("%s %d\n",player[j][i].hua1,player[j][i].dian1);
+            }
+        }
+    }
+    /*printf("洗牌效果如下\n");
+    for(int i=0;i<52;i++){
+        printf(" %s%d ",p[i].hua1,p[i].dian1);
+    }
+    printf("\n");*/
+    /*for(int i=0;i<13;i++){
+        printf("%d ",dian[i]);
+    }
+    for(int i=0;i<4;i++){
+        printf("%s ",huase[i]);
+    }*/
+    return 0;
+}
